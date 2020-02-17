@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
+import com.githubapi.appstreet.data.GitWebService;
 import com.githubapi.appstreet.inject.DaggerApplicationComponent;
 
 import javax.inject.Inject;
@@ -20,11 +21,19 @@ public class BaseApplication extends MultiDexApplication implements HasActivityI
 
     private static BaseApplication instance;
 
+    public static BaseApplication getInstance() {
+        return instance;
+    }
+
+    @Inject
+    public GitWebService gitWebService;
+
     @Override
     public void onCreate() {
         super.onCreate();
         instance = (BaseApplication)this;
-        DaggerApplicationComponent.builder().application(this)
+        DaggerApplicationComponent.builder()
+                .application(this)
                 .build()
                 .inject(this);
     }

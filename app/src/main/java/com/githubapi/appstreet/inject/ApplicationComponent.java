@@ -1,6 +1,7 @@
 package com.githubapi.appstreet.inject;
 
 import com.githubapi.appstreet.BaseApplication;
+import com.githubapi.appstreet.ui.inject.ContributorsModule;
 
 import javax.inject.Singleton;
 
@@ -10,7 +11,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 
 @Singleton
-@Component(modules = {AndroidSupportInjectionModule.class, NetworkApiModule.class})
+@Component(modules = {AndroidSupportInjectionModule.class, NetworkApiModule.class, ContributorsModule.class})
 public interface ApplicationComponent extends AndroidInjector<BaseApplication> {
 
     @Component.Builder

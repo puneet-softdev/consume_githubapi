@@ -1,4 +1,6 @@
 package com.githubapi.appstreet.ui.trendings.view.fragments;
 
-public class ReposDetailFragment {
+import com.githubapi.appstreet.ui.trendings.view.BaseFragment;
+
+public class ReposDetailFragment extends BaseFragment {
 }

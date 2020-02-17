@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">AppStreet</string>
+    <string-array name="language_array">
+        <item>java</item>
+        <item>kotlin</item>
+        <item>c</item>
+        <item>c++</item>
+        <item>swift</item>
+    </string-array>
+
+    <string-array name="since_array">
+        <item>weekly</item>
+        <item>monthly</item>
+        <item>daily</item>
+    </string-array>
 </resources>
