@@ -12,27 +12,40 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.githubapi.appstreet.BaseApplication;
 import com.githubapi.appstreet.R;
 import com.githubapi.appstreet.data.ApiResponse;
 import com.githubapi.appstreet.databinding.FragmentReposBinding;
+import com.githubapi.appstreet.models.Repo;
+import com.githubapi.appstreet.ui.trendings.adapter.RepoAdapter;
+import com.githubapi.appstreet.ui.trendings.listeners.RepoActivityListener;
+import com.githubapi.appstreet.ui.trendings.listeners.RepoSelectedListener;
 import com.githubapi.appstreet.ui.trendings.view.BaseFragment;
 import com.githubapi.appstreet.ui.trendings.viewmodel.ReposViewModel;
 import com.githubapi.appstreet.utils.AppUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dagger.android.AndroidInjection;
 
-public class ReposFragment extends BaseFragment {
+public class ReposFragment extends BaseFragment implements RepoSelectedListener {
 
     ReposViewModel reposViewModel;
     ProgressDialog progressDialog;
-
-//    @Inject
-//    ReposViewModelFactory reposViewModelFactory;
-
+    List<Repo> reposList;
 
     FragmentReposBinding fragmentReposBinding;
+    RepoAdapter repoAdapter;
+
+    RepoActivityListener repoActivityListener;
+
+    public ReposFragment(RepoActivityListener repoActivityListener){
+        this.repoActivityListener = repoActivityListener;
+    }
 
     @Nullable
     @Override
@@ -42,7 +55,19 @@ public class ReposFragment extends BaseFragment {
         fragmentReposBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_repos, container, false);
         View view = fragmentReposBinding.getRoot();
+
+        repoAdapter = new RepoAdapter(reposList, this);
+        fragmentReposBinding.recyclerRepos.addItemDecoration(new DividerItemDecoration(getBaseActivity(), DividerItemDecoration.VERTICAL));
+        fragmentReposBinding.recyclerRepos.setAdapter(repoAdapter);
+        fragmentReposBinding.recyclerRepos.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
     }
 
     @Override
@@ -68,7 +93,7 @@ public class ReposFragment extends BaseFragment {
 
             case SUCCESS:
                 progressDialog.dismiss();
-                // notify adapter
+                ((RepoAdapter)fragmentReposBinding.recyclerRepos.getAdapter()).notifyData((ArrayList<Repo>) apiResponse.data);
                 break;
 
             case ERROR:
@@ -79,5 +104,10 @@ public class ReposFragment extends BaseFragment {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onRepoSelected(Repo repo) {
+        repoActivityListener.onRepoActivity(repo);
     }
 }

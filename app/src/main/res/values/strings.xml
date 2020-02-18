@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">AppStreet</string>
+
+    <string name="prompt_written_in">Written in</string>
+    <string name="prompt_by">By</string>
     <string-array name="language_array">
         <item>java</item>
         <item>kotlin</item>
-        <item>c</item>
-        <item>c++</item>
         <item>swift</item>
     </string-array>
 

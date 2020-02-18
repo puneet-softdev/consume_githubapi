@@ -69,4 +69,28 @@ public class Repo implements Parcelable {
         parcel.writeString(avatar);
         parcel.writeParcelable(repo, i);
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getRepoUrl() {
+        return repoUrl;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public RepoDescription getRepo() {
+        return repo;
+    }
 }

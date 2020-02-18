@@ -10,6 +10,9 @@ import android.os.Bundle;
 import com.githubapi.appstreet.R;
 import com.githubapi.appstreet.base.BaseActivity;
 import com.githubapi.appstreet.databinding.ActivityMainBinding;
+import com.githubapi.appstreet.models.Repo;
+import com.githubapi.appstreet.ui.trendings.listeners.RepoActivityListener;
+import com.githubapi.appstreet.ui.trendings.view.fragments.ReposDetailFragment;
 import com.githubapi.appstreet.ui.trendings.view.fragments.ReposFragment;
 
 import javax.inject.Inject;
@@ -19,7 +22,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends BaseActivity implements HasSupportFragmentInjector {
+public class MainActivity extends BaseActivity implements HasSupportFragmentInjector, RepoActivityListener {
 
     ActivityMainBinding activityMainBinding;
 
@@ -38,7 +41,7 @@ public class MainActivity extends BaseActivity implements HasSupportFragmentInje
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(activityMainBinding.toolbar);
         if(savedInstanceState == null)
-            getSupportFragmentManager().beginTransaction().add(activityMainBinding.container.getId(), new ReposFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(activityMainBinding.container.getId(), new ReposFragment(this)).commit();
 
     }
 
@@ -50,15 +53,17 @@ public class MainActivity extends BaseActivity implements HasSupportFragmentInje
         }
     }
 
-    private void addFragment(){
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(activityMainBinding.container.getId(), new ReposFragment());
-        fragmentTransaction.commit();
-    }
-
-
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
+    }
+
+    @Override
+    public void onRepoActivity(Repo repo) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ReposDetailFragment.KEY_ARGUMENT, repo);
+        getSupportFragmentManager().beginTransaction()
+                .add(activityMainBinding.container.getId(), ReposDetailFragment.newInstance(bundle)).commit();
+
     }
 }
