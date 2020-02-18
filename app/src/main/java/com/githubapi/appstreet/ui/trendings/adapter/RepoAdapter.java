@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,13 +15,14 @@ import com.githubapi.appstreet.R;
 import com.githubapi.appstreet.databinding.RowRepoBinding;
 import com.githubapi.appstreet.models.Repo;
 import com.githubapi.appstreet.ui.BitmapBind;
+import com.githubapi.appstreet.ui.trendings.RepoViewHolder;
 import com.githubapi.appstreet.ui.trendings.listeners.RepoSelectedListener;
 import com.githubapi.appstreet.ui.trendings.viewmodel.ReposViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder> {
+public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
 
     private List<Repo> repos;
     private RepoSelectedListener repoSelectedListener;
@@ -41,8 +43,9 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
     @Override
     public void onBindViewHolder(@NonNull RepoViewHolder holder, int position) {
         holder.bind(repos.get(position));
+        ViewCompat.setTransitionName(holder.rowRepoBinding.sharedImageRepoOwner, repos.get(position).getUserName());
         holder.rowRepoBinding.sharedImageRepoOwner.setOnClickListener(view -> {
-            repoSelectedListener.onRepoSelected(repos.get(position));
+            repoSelectedListener.onRepoSelected(repos.get(position), holder);
         });
     }
 
@@ -58,7 +61,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
         notifyDataSetChanged();
     }
 
-    static final class RepoViewHolder extends RecyclerView.ViewHolder {
+    /*public static final class RepoViewHolder extends RecyclerView.ViewHolder {
 
         public RowRepoBinding rowRepoBinding;
 
@@ -71,5 +74,5 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
             rowRepoBinding.setVariable(com.githubapi.appstreet.BR.repo, repo);
             BitmapBind.bindBitmapToImage(rowRepoBinding.sharedImageRepoOwner, repo.getAvatar());
         }
-    }
+    }*/
 }

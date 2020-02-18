@@ -1,9 +1,12 @@
 package com.githubapi.appstreet.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionInflater;
 
 import android.os.Bundle;
 
@@ -11,6 +14,7 @@ import com.githubapi.appstreet.R;
 import com.githubapi.appstreet.base.BaseActivity;
 import com.githubapi.appstreet.databinding.ActivityMainBinding;
 import com.githubapi.appstreet.models.Repo;
+import com.githubapi.appstreet.ui.trendings.RepoViewHolder;
 import com.githubapi.appstreet.ui.trendings.listeners.RepoActivityListener;
 import com.githubapi.appstreet.ui.trendings.view.fragments.ReposDetailFragment;
 import com.githubapi.appstreet.ui.trendings.view.fragments.ReposFragment;
@@ -59,11 +63,12 @@ public class MainActivity extends BaseActivity implements HasSupportFragmentInje
     }
 
     @Override
-    public void onRepoActivity(Repo repo) {
+    public void onRepoActivity(Repo repo, RepoViewHolder viewHolder) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(ReposDetailFragment.KEY_ARGUMENT, repo);
+
         getSupportFragmentManager().beginTransaction()
-                .add(activityMainBinding.container.getId(), ReposDetailFragment.newInstance(bundle)).commit();
+                .add(activityMainBinding.container.getId(), ReposDetailFragment.newInstance(bundle)).addToBackStack(null).addSharedElement(viewHolder.rowRepoBinding.sharedImageRepoOwner, ViewCompat.getTransitionName(viewHolder.rowRepoBinding.sharedImageRepoOwner)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
 
     }
 }

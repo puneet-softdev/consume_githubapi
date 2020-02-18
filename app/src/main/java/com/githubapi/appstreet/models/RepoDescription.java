@@ -32,6 +32,18 @@ public class RepoDescription implements Parcelable {
         this.url = url;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
     public static final Creator<RepoDescription> CREATOR = new Creator<RepoDescription>() {
         @Override
         public RepoDescription createFromParcel(Parcel in) {

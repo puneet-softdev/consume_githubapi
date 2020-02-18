@@ -1,86 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="#ffffff"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/shared_image_repo_owner_detail"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/ic_octoface" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
-    <TextView
-        android:id="@+id/shared_text_username_detail"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginStart="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-        android:layout_marginLeft="16dp" />
+        >
 
-    <TextView
-        android:id="@+id/shared_text_name_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
-        android:textStyle="bold"
-        tools:text="Dagger"
-        android:layout_marginLeft="16dp" />
+        <ImageView
+            android:id="@+id/shared_image_repo_owner_detail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:foreground="@drawable/foreground_repo_owner_avatar"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="3:2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_octoface" />
 
-    <TextView
-        android:id="@+id/text_account_url"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textColor="@color/blue_light"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        tools:text="user Url" />
+        <TextView
+            android:id="@+id/shared_text_username_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            app:layout_constraintBottom_toTopOf="@id/shared_text_name_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Puneet Grover"
+            android:layout_marginLeft="16dp" />
 
-    <TextView
-        android:id="@+id/text_repo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_margin="16dp"
-        android:textColor="@color/colorAccent"
-        android:text="Repository Detail :"/>
+        <TextView
+            android:id="@+id/shared_text_name_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/shared_image_repo_owner_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Dagger"
+            android:layout_marginLeft="16dp" />
 
-    <TextView
-        android:id="@+id/text_repo_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        tools:text="Type" />
+        <TextView
+            android:id="@+id/text_account_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="@color/blue_light"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shared_text_name_detail"
+            tools:text="user Url" />
 
-    <TextView
-        android:id="@+id/text_repo_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="start"
-        android:textColor="@color/grey_600"
-        android:textSize="14sp"
-        tools:text="Some description" />
+        <TextView
+            android:id="@+id/text_repo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_account_url"
+            android:textColor="@color/colorAccent"
+            android:text="Repository Detail :"
+            tools:text="Repository Detail :" />
+
+        <TextView
+            android:id="@+id/text_repo_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_repo"
+            tools:text="Type" />
+
+        <TextView
+            android:id="@+id/text_repo_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="start"
+            android:textColor="@color/grey_600"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_repo_name"
+            tools:text="Some description" />
 
 
-    <TextView
-        android:id="@+id/text_repo_url"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textColor="@color/blue_light"
-        tools:text="Repo Url" />
+        <TextView
+            android:id="@+id/text_repo_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/blue_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_repo_description"
+            tools:text="Repo Url" />
 
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+</layout>

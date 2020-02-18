@@ -2,7 +2,9 @@ package com.githubapi.appstreet.ui.trendings.view.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.githubapi.appstreet.BaseApplication;
 import com.githubapi.appstreet.R;
 import com.githubapi.appstreet.data.ApiResponse;
 import com.githubapi.appstreet.databinding.FragmentReposBinding;
 import com.githubapi.appstreet.models.Repo;
+import com.githubapi.appstreet.ui.trendings.RepoViewHolder;
 import com.githubapi.appstreet.ui.trendings.adapter.RepoAdapter;
 import com.githubapi.appstreet.ui.trendings.listeners.RepoActivityListener;
 import com.githubapi.appstreet.ui.trendings.listeners.RepoSelectedListener;
@@ -61,13 +65,7 @@ public class ReposFragment extends BaseFragment implements RepoSelectedListener 
         fragmentReposBinding.recyclerRepos.setAdapter(repoAdapter);
         fragmentReposBinding.recyclerRepos.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
         return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
     }
 
     @Override
@@ -107,7 +105,12 @@ public class ReposFragment extends BaseFragment implements RepoSelectedListener 
     }
 
     @Override
-    public void onRepoSelected(Repo repo) {
-        repoActivityListener.onRepoActivity(repo);
+    public void onRepoSelected(Repo repo, RepoViewHolder viewHolder) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.change_image_transform));
+            setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
+        }
+        repoActivityListener.onRepoActivity(repo, viewHolder);
     }
+
 }
