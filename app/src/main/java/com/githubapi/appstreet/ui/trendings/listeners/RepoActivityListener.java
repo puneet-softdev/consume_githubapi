@@ -1,11 +1,10 @@
 package com.githubapi.appstreet.ui.trendings.listeners;
 
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.ImageView;
 
 import com.githubapi.appstreet.models.Repo;
-import com.githubapi.appstreet.ui.trendings.RepoViewHolder;
 
 public interface RepoActivityListener {
 
-    void onRepoActivity(Repo repo, RepoViewHolder viewHolder);
+    void onRepoActivity(Repo repo, ImageView imageView);
 }

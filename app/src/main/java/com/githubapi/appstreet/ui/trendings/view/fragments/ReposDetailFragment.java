@@ -25,6 +25,8 @@ public class ReposDetailFragment extends Fragment {
     public static final String KEY_ARGUMENT = "Arugment_data";
     private FragDetailBinding fragDetailBinding;
 
+    public ReposDetailFragment(){}
+
     public static ReposDetailFragment newInstance(Bundle repoBundle) {
         ReposDetailFragment fragment = new ReposDetailFragment();
         fragment.setArguments(repoBundle);
@@ -57,14 +59,14 @@ public class ReposDetailFragment extends Fragment {
         if(getArguments()!=null && getArguments().getParcelable(KEY_ARGUMENT)!=null){
             Repo repo = getArguments().getParcelable(KEY_ARGUMENT);
 
+            ImageView imageView = (ImageView)view.findViewById(R.id.shared_image_repo_owner_detail);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                fragDetailBinding.sharedImageRepoOwnerDetail.setTransitionName(repo.getUserName());
-                fragDetailBinding.sharedTextNameDetail.setTransitionName(repo.getUserName()+"_name");
+                imageView.setTransitionName(repo.getUserName());
+//                fragDetailBinding.sharedTextNameDetail.setTransitionName(repo.getUserName()+"_name");
             }
 
-
-            BitmapBind.bindBitmapToImage(fragDetailBinding.sharedImageRepoOwnerDetail, repo.getAvatar());
+            BitmapBind.bindBitmapToImage(imageView, repo.getAvatar());
             fragDetailBinding.sharedTextNameDetail.setText(repo.getName());
             fragDetailBinding.sharedTextUsernameDetail.setText(repo.getUserName());
             fragDetailBinding.textAccountUrl.setText(repo.getRepoUrl());

@@ -8,6 +8,7 @@ import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -105,12 +106,8 @@ public class ReposFragment extends BaseFragment implements RepoSelectedListener 
     }
 
     @Override
-    public void onRepoSelected(Repo repo, RepoViewHolder viewHolder) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.change_image_transform));
-            setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
-        }
-        repoActivityListener.onRepoActivity(repo, viewHolder);
+    public void onRepoSelected(Repo repo, ImageView imageView) {
+        repoActivityListener.onRepoActivity(repo, imageView);
     }
 
 }

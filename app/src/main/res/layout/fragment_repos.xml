@@ -14,19 +14,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:background="@color/black_a10"
-                android:padding="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
+            <LinearLayout
+                    android:padding="5dp"
                     android:id="@+id/layout_selectors"
+                    android:background="@color/black_a10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:orientation="horizontal"
-                    android:layout_toLeftOf="@+id/search_btn"
                     >
                     <Spinner
                         android:id="@+id/selector_lang"
@@ -42,32 +36,11 @@
                         android:layout_height="wrap_content"
                         android:entries="@array/since_array"/>
                 </LinearLayout>
-                <EditText
-                    android:id="@+id/text_search"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:hint="Search"
-                    android:textColor="@color/grey_200"
-                    android:layout_toLeftOf="@+id/search_btn" />
-                <ImageView
-                    android:id="@+id/search_btn"
-                    android:padding="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_search"
-                    />
-
-            </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_repos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-
 
         </LinearLayout>
 

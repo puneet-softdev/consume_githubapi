@@ -42,10 +42,11 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RepoViewHolder holder, int position) {
-        holder.bind(repos.get(position));
+        Repo repo = repos.get(position);
+        holder.bind(repo);
         ViewCompat.setTransitionName(holder.rowRepoBinding.sharedImageRepoOwner, repos.get(position).getUserName());
         holder.rowRepoBinding.sharedImageRepoOwner.setOnClickListener(view -> {
-            repoSelectedListener.onRepoSelected(repos.get(position), holder);
+            repoSelectedListener.onRepoSelected(repo, holder.rowRepoBinding.sharedImageRepoOwner);
         });
     }
 
@@ -60,19 +61,4 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
         repos.addAll(list);
         notifyDataSetChanged();
     }
-
-    /*public static final class RepoViewHolder extends RecyclerView.ViewHolder {
-
-        public RowRepoBinding rowRepoBinding;
-
-        public RepoViewHolder(RowRepoBinding rowRepoBinding) {
-            super(rowRepoBinding.getRoot());
-            this.rowRepoBinding = rowRepoBinding;
-        }
-
-        void bind(Repo repo){
-            rowRepoBinding.setVariable(com.githubapi.appstreet.BR.repo, repo);
-            BitmapBind.bindBitmapToImage(rowRepoBinding.sharedImageRepoOwner, repo.getAvatar());
-        }
-    }*/
 }

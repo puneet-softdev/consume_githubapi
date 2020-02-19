@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionInflater;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.githubapi.appstreet.R;
 import com.githubapi.appstreet.base.BaseActivity;
@@ -63,12 +64,16 @@ public class MainActivity extends BaseActivity implements HasSupportFragmentInje
     }
 
     @Override
-    public void onRepoActivity(Repo repo, RepoViewHolder viewHolder) {
+    public void onRepoActivity(Repo repo, ImageView imageView) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(ReposDetailFragment.KEY_ARGUMENT, repo);
 
-        getSupportFragmentManager().beginTransaction()
-                .add(activityMainBinding.container.getId(), ReposDetailFragment.newInstance(bundle)).addToBackStack(null).addSharedElement(viewHolder.rowRepoBinding.sharedImageRepoOwner, ViewCompat.getTransitionName(viewHolder.rowRepoBinding.sharedImageRepoOwner)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
-
+        ReposDetailFragment reposDetailFragment = ReposDetailFragment.newInstance(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addSharedElement(imageView, ViewCompat.getTransitionName(imageView))
+                .addToBackStack("RepoFragment")
+                .replace(activityMainBinding.container.getId(), reposDetailFragment)
+                .commit();
     }
 }
